@@ -6,8 +6,8 @@ build = "build.rs"
 
 description = "Nerd Fonts SVG icons as GResource for GTK4/Adwaita Rust applications."
 license = "MIT"
-repository = "https://github.com//MariaGolubev/nerd_gtk_icons"
-homepage = "https://github.com//MariaGolubev/nerd_gtk_icons"
+repository = "https://github.com/MariaGolubev/nerd_gtk_icons"
+homepage = "https://github.com/MariaGolubev/nerd_gtk_icons"
 documentation = "https://docs.rs/nerd_gtk_icons"
 keywords = ["gtk", "icons", "nerd-fonts", "adwaita", "svg"]
 categories = ["gui", "graphics", "visualization"]
