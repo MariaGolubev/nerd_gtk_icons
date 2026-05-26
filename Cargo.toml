@@ -1,6 +1,6 @@
 [package]
 name = "nerd_gtk_icons"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 build = "build.rs"
 

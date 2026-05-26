@@ -7,7 +7,7 @@ A library for embedding Nerd Fonts SVG icons as GResource in GTK4/Adwaita Rust a
 
 1. Add the dependency to your `Cargo.toml`:
 
-```
+```toml
 [dependencies]
 nerd_gtk_icons = { path = "../nerd_gtk_icons" }
 ```
@@ -15,7 +15,7 @@ nerd_gtk_icons = { path = "../nerd_gtk_icons" }
 
 2. Register the resources and add the icon theme path in your application (see example below):
 
-```
+```rust
 use adw::gtk;
 use adw::prelude::*;
 use nerd_gtk_icons;
@@ -45,7 +45,7 @@ fn build_ui(app: &adw::Application) {
 
 3. Use icons by name:
 
-```
+```rust
 let image = gtk::Image::from_icon_nam(nerd_gtk_icons::icons::NF_DEV_RUST_SYMBOLIC);
 ```
 
