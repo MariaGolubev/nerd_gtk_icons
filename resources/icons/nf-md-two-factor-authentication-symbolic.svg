@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="-10 0 2068 2048">
+   <path fill="currentColor"
+d="M0 510v206h408v207h-206q-82 0 -142 60t-60 142v413h616v-206h-414v-207h206q88 0 148 -60t60 -142v-207q0 -86 -60 -146t-148 -60h-408zM716 510v1028h206v-413h308v-202h-308v-207h410v-206h-616zM1638 510q-86 0 -146 60t-60 146v822h206v-307h208v307h202v-822
+q0 -86 -60 -146t-142 -60h-208zM1638 716h208v308h-208v-308z" />
+</svg>
