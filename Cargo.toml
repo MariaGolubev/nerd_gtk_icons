@@ -4,6 +4,16 @@ version = "0.1.0"
 edition = "2024"
 build = "build.rs"
 
+description = "Nerd Fonts SVG icons as GResource for GTK4/Adwaita Rust applications."
+license = "MIT"
+repository = "https://github.com//MariaGolubev/nerd_gtk_icons"
+homepage = "https://github.com//MariaGolubev/nerd_gtk_icons"
+documentation = "https://docs.rs/nerd_gtk_icons"
+keywords = ["gtk", "icons", "nerd-fonts", "adwaita", "svg"]
+categories = ["gui", "graphics", "visualization"]
+readme = "README.md"
+authors = ["Maria <golubevmt@gmail.com>"]
+
 [dependencies]
 gio = "0.22.6"
 phf = { version = "0.13.1", features = ["macros"] }
