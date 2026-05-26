@@ -67,7 +67,7 @@ if __name__ == "__main__":
     xml_path = os.path.join(args.output, "icons.gresource.xml")
     json_path = os.path.join(args.output, "metadata.json")
 
-    # Clean output directory if it exists
+    # Clean output directory
     if os.path.exists(args.output):
         shutil.rmtree(args.output)
 
@@ -75,10 +75,19 @@ if __name__ == "__main__":
 
     icons = []
 
+    # ----------------------------
+    # DEDUP STORAGE (IMPORTANT FIX)
+    # ----------------------------
+    seen_names = set()
+
+    # ----------------------------
+    # EXPORT GLYPHS
+    # ----------------------------
+
     for glyph in font.glyphs():
         name = glyph.glyphname
 
-        # Skip non-exportable or internal glyphs
+        # Skip invalid glyphs
         if (
             not glyph.isWorthOutputting()
             or not name
@@ -89,12 +98,18 @@ if __name__ == "__main__":
             continue
 
         safe_name = normalize_name(name)
-        codepoint = glyph.unicode
-
-        codepoint_hex = f"{codepoint:04X}" if codepoint != -1 else None
 
         if not safe_name:
             continue
+
+        # ❗ prevent duplicate SVG exports (MAIN FIX)
+        if safe_name in seen_names:
+            continue
+
+        seen_names.add(safe_name)
+
+        codepoint = glyph.unicode
+        codepoint_hex = f"{codepoint:04X}" if codepoint != -1 else None
 
         filename = os.path.join(icons_dir, f"{safe_name}.svg")
 
@@ -102,27 +117,28 @@ if __name__ == "__main__":
             glyph.export(filename)
             clean_svg(filename)
         except Exception:
-            # Skip broken glyph exports safely
             continue
 
         icons.append({
             "code": codepoint_hex,
             "name": safe_name,
-            "file": f"icons/{safe_name}.svg"
+            "file": f"resources/icons/{safe_name}.svg",
+            "resource_path": f"/com/nerd/icons/{safe_name}"
         })
 
     # ----------------------------
-    # Generate GResource XML
+    # GENERATE GRESOURCE XML
     # ----------------------------
 
     xml = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<gresources>',
-        '  <gresource prefix="/com/nerd/icons">'
+        '  <gresource prefix="/com/nerd">'
     ]
 
-    for icon in icons:
-        xml.append(f'    <file>{icon["file"]}</file>')
+    # stable ordering (optional but good practice)
+    for icon in sorted(icons, key=lambda x: x["name"]):
+        xml.append(f'    <file>icons/{icon["name"]}.svg</file>')
 
     xml += [
         '  </gresource>',
@@ -132,7 +148,10 @@ if __name__ == "__main__":
     with open(xml_path, "w", encoding="utf-8") as f:
         f.write("\n".join(xml))
 
-    # Export metadata to JSON
+    # ----------------------------
+    # EXPORT METADATA JSON
+    # ----------------------------
+
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(icons, f, ensure_ascii=False, indent=4)
 
